@@ -1,0 +1,35 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        env:
+            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+            DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+
+            - name: Login to Docker Hub
+              run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+            - name: Build Docker Image
+              run: docker build -t $DOCKER_USERNAME/blogging:latest \
+                   --build-agr NODE_ENV=${{ secrets.NODE_ENV }} \
+                   --build-agr PORT=${{ secrets.PORT }} \
+                   --build-agr DATABASE_USER=${{ secrets.DATABASE_USER }} \
+                   --build-agr DATABASE_HOST=${{ secrets.DATABASE_HOST }} \
+                   --build-agr DATABASE_NAME=${{ secrets.DATABASE_NAME }} \
+                   --build-agr DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} \
+                   --build-agr DATABASE_PORT=${{ secrets.DATABASE_PORT }} .
+
+            - name: Push Docker Image
+              run: docker push $DOCKER_USERNAME/blogging:latest
