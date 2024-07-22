@@ -1,8 +1,8 @@
 import '@/lib/typeorm/typeorm';
 import 'reflect-metadata';
 import fastify from 'fastify';
-import { teacherRoutes } from './controller/teacher/routes';
-import { postRoutes } from './controller/post/routes';
+import { teacherRoutes } from './http/controller/teacher/routes';
+import { postRoutes } from './http/controller/post/routes';
 
 export const app = fastify();
 
