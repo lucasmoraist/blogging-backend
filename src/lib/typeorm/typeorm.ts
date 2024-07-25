@@ -13,6 +13,10 @@ export const appDataSource = new DataSource({
   database: env.DATABASE_NAME,
   entities: [Post, Teacher, User],
   logging: env.NODE_ENV === 'development',
+  synchronize: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 appDataSource
