@@ -1,6 +1,6 @@
 import { IPost } from '@/entities/model/post.interface';
 import { IPostRepository } from '../post.repository.interface';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Post } from '@/entities/post.entity';
 import { appDataSource } from '@/lib/typeorm/typeorm';
 
@@ -9,6 +9,14 @@ export class PostRepository implements IPostRepository {
 
   constructor() {
     this.repository = appDataSource.getRepository(Post);
+  }
+  findByKeyword(keyword: string): Promise<IPost | null> {
+    return this.repository.findOne({
+      relations: ['teacher'],
+      where: {
+        title: Like(`%${keyword}%`),
+      },
+    });
   }
 
   async findAll(page: number, limit: number): Promise<IPost[]> {
