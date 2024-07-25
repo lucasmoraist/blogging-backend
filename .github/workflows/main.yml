@@ -39,6 +39,7 @@ jobs:
       DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
       DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
       DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
     steps:
       - name: Checkout Repository
@@ -48,8 +49,7 @@ jobs:
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: Build Docker Image
-        run: |
-          docker build -t $DOCKER_USERNAME/blogging:latest .
+        run: docker build -t $DOCKER_USERNAME/blogging:latest .
           
       - name: Push Docker Image
         run: docker push $DOCKER_USERNAME/blogging:latest
