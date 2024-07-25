@@ -11,11 +11,12 @@ import { updatePostSchema } from '@/lib/swagger/post/update-post.schema';
 import { deletePostSchema } from '@/lib/swagger/post/delete-post.schema';
 import { listOnePostSchema } from '@/lib/swagger/post/list-one-post.schema';
 import { findKeyword } from './find-keyword';
+import { listPostKeywordSchema } from '@/lib/swagger/post/list-post-keyword.schema';
 
 export async function postRoutes(app: FastifyInstance) {
   app.get('/posts', listAllPostsSchema, findAll);
   app.get('/posts/:id', listOnePostSchema, findOne);
-  app.get('/posts/keyword', findKeyword);
+  app.get('/posts/keyword', listPostKeywordSchema, findKeyword);
 
   app.post(
     '/posts/:teacherId',
