@@ -7,7 +7,7 @@ import { listOneTeacherSchema } from '@/lib/swagger/teacher/list-one-teacher.sch
 
 export async function teacherRoutes(app: FastifyInstance) {
   app.get(
-    '/teacher/:id',
+    '/teacher/:teacherId',
     { schema: listOneTeacherSchema, onRequest: jwtValidate },
     findTeacher,
   );

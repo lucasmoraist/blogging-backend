@@ -1,14 +1,9 @@
+import { registerBodySchemaTeacher } from '@/entities/dto/register-body-schema-teacher.dto';
 import { makeCreateTeacherUseCase } from '@/use-cases/factory/make-create-teacher-use-case';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { z } from 'zod';
 
 export async function create(req: FastifyRequest, res: FastifyReply) {
-  const registerBodySchema = z.object({
-    name: z.string(),
-    class: z.string(),
-  });
-
-  const { name, class: string } = registerBodySchema.parse(req.body);
+  const { name, class: string } = registerBodySchemaTeacher.parse(req.body);
 
   const createTeacherUseCase = makeCreateTeacherUseCase();
 

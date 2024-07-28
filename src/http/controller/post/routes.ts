@@ -15,7 +15,7 @@ import { listPostKeywordSchema } from '@/lib/swagger/post/list-post-keyword.sche
 
 export async function postRoutes(app: FastifyInstance) {
   app.get('/posts', listAllPostsSchema, findAll);
-  app.get('/posts/:id', listOnePostSchema, findOne);
+  app.get('/posts/:idPost', listOnePostSchema, findOne);
   app.get('/posts/keyword', listPostKeywordSchema, findKeyword);
 
   app.post(
@@ -24,12 +24,12 @@ export async function postRoutes(app: FastifyInstance) {
     create,
   );
   app.put(
-    '/posts/:id',
+    '/posts/:idPost',
     { schema: updatePostSchema, onRequest: jwtValidate },
     update,
   );
   app.delete(
-    '/posts/:id',
+    '/posts/:idPost',
     { schema: deletePostSchema, onRequest: jwtValidate },
     deletePost,
   );
